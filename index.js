@@ -16,12 +16,10 @@ app.use(cors()); // Enable CORS for cross-origin requests
 // Connect to the database
 connectDB();
 
-// Test route (replace with actual routes later)
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
-// Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
