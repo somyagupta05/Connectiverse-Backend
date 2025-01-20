@@ -23,10 +23,11 @@ const login = async (req, res) => {
   const { username, password } = req.body;
 
   const user = await User.findOne({ username }).select("+password");
+  if (!user) return res.status(400).json({ message: "Invalid user name " });
 
   const isMatch = await compare(password, user.password);
 
-  if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+  if (!isMatch) return res.status(400).json({ message: "Invalid password" });
 
   sendToken(res, user, 20, `welcome Back ,${user.name}`);
 };
