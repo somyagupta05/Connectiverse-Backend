@@ -1,22 +1,27 @@
-const newUser = async (req, res) => {
-  try {
-    const avatar = {
-      public_id: "Sdfsd",
-      url: "asdfd",
-    };
+// controllers/user.js
+import { User } from "../models/user.js";
+import { sendToken } from "../utils/features.js";
 
-    const user = await User.create({
-      name: "chaman",
-      username: "chaman",
-      password: "chaman",
-      avatar,
-    });
-
-    res.status(201).json({ message: "User created successfully", user });
-  } catch (error) {
-    console.error("Error creating user:", error.message);
-    res
-      .status(500)
-      .json({ message: "Failed to create user", error: error.message });
-  }
+const login = (req, res) => {
+  res.send("hello world");
 };
+
+const newUser = async (req, res) => {
+  // const { name, username, password, bio } = req.body;
+  const avatar = {
+    public_id: "Sdfsd",
+    url: "asdfd",
+  };
+  const user=await User.create({
+    name,
+    bio,
+    username,
+    password,
+    avatar,
+  });
+
+ sendToken(res,user,201,"user craeted")
+};
+
+// Export the functions
+export { login, newUser };
