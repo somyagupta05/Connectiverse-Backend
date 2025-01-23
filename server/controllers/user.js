@@ -1,7 +1,8 @@
 // controllers/user.js
 import { User } from "../models/user.js";
 import { sendToken } from "../utils/features.js";
-
+import { TryCatch } from "../middlewares/error.js";
+import { ErrorHandler } from "../utils/utility.js";
 const newUser = async (req, res) => {
   // const { name, username, password, bio } = req.body;
   const avatar = {
@@ -19,18 +20,25 @@ const newUser = async (req, res) => {
   sendToken(res, user, 201, "user craeted");
 };
 
-const login = async (req, res) => {
-  const { username, password } = req.body;
+const login = TryCatch(async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
 
-  const user = await User.findOne({ username }).select("+password");
-  if (!user) return res.status(400).json({ message: "Invalid user name " });
+    const user = await User.findOne({ username }).select("+password");
+    if (!user)
+      return next(new ErrorHandler("Invalid user name or password", 404));
 
-  const isMatch = await compare(password, user.password);
+    const isMatch = await compare(password, user.password);
 
-  if (!isMatch) return res.status(400).json({ message: "Invalid password" });
+    if (!isMatch)
+      return next(new ErrorHandler("Invalid password or username", 404));
 
-  sendToken(res, user, 20, `welcome Back ,${user.name}`);
-};
+    sendToken(res, user, 20, `welcome Back ,${user.name}`);
+  } catch (error) {
+    next(error);
+  }
+});
 
-// Export the functions
-export { login, newUser };
+const getMyProfile = (req, res) => {};
+
+export { login, newUser, getMyProfile };
