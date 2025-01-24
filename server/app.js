@@ -4,7 +4,7 @@ import { connectDB } from "./utils/features.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { errorMiddleware } from "./middlewares/error.js";
-
+import chatRoute from "./routes/chat.js";
 dotenv.config({
   path: "./.env",
 });
@@ -19,7 +19,7 @@ const port = process.env.PORT || 3000;
 
 connectDB(mongoURI);
 app.use("/user", router);
-
+app.use("/chat", chatRoute);
 app.get("/", (req, res) => {
   res.send("hello world");
 });
