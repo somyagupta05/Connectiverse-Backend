@@ -104,7 +104,7 @@ const addMembers = TryCatch(async (req, res, next) => {
     .filter((i) => !chat.members.includes(i._id.toString()))
     .map((i) => i._id);
 
-  chat.members.push(...allNewMembers.map((i) => i._id));
+  chat.members.push(...uniqueMmebers);
 
   if (chat.members.length > 100)
     return next(new ErrorHandler("group member limit reached", 400));
