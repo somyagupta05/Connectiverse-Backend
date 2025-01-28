@@ -3,6 +3,7 @@ import chat from "../models/chat.js";
 import { emitEvent } from "../utils/features.js";
 import { ErrorHandler } from "../utils/utility.js";
 import { ALERT, REFETCH_CHATS } from "../constants/events.js";
+import { getOtherMember } from "../lib/helper.js";
 const newGroupChat = TryCatch(async (req, res, next) => {
   const { name, members } = req.body;
 
@@ -33,9 +34,30 @@ const getMyChats = TryCatch(async (req, res, next) => {
     "name avatar"
   );
 
-  return res.status(201).json({
+  const transformedChats = chats.map((chat) => {
+    const { members, _id, groupChat, name } = chat; // Destructure the required properties
+    const otherMember = getOtherMember(members, req.user);
+
+    return {
+      _id,
+      groupChat,
+      avatar: groupChat
+        ? members.slice(0, 3).map(({ avatar }) => avatar.url)
+        : [otherMember.avatar.url],
+      name: groupChat ? name : otherMember.name,
+      members: members.reduce((prev, curr) => {
+        if (curr._id.toString() !== req.user.toString()) {
+          prev.push(curr._id);
+        }
+        return prev;
+      }, []),
+    };
+  });
+
+  return res.status(200).json({
     success: true,
-    chats,
+    chats: transformedChats, // Return transformed chats instead of raw chats
   });
 });
+
 export { newGroupChat, getMyChats };
