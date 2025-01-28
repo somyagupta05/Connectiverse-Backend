@@ -87,6 +87,8 @@ const geMyGroups = TryCatch(async (req, res, next) => {
 
 const addMembers = TryCatch(async (req, res, next) => {
   const { ChatId, members } = req.body;
+  if (!members || members.length < 1)
+    return next(new ErrorHandler("please provide members", 400));
   const chats = await Chat.find({ chatId });
 
   if (!chat) return next(new ErrorHandler("chat not found", 404));
@@ -97,6 +99,10 @@ const addMembers = TryCatch(async (req, res, next) => {
 
   const allNewMembersPromise = members.map((i) => User.findById(i, "name"));
   const allNewMembers = await Promise.all(allNewMembersPromise);
+
+  const uniqueMmebers = allNewMembers
+    .filter((i) => !chat.members.includes(i._id.toString()))
+    .map((i) => i._id);
 
   chat.members.push(...allNewMembers.map((i) => i._id));
 
