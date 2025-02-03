@@ -6,6 +6,7 @@ import {
   newGroupChat,
   getMyGroups,
   addMembers,
+  leaveGroup,
 } from "../controllers/chat.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 
@@ -24,4 +25,5 @@ app.put("/addmembers", addMembers);
 
 app.put("/removemember", removeMember);
 
+app.delete("/leave/:id"leaveGroup);
 export default app;
