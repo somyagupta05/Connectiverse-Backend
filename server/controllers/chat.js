@@ -165,7 +165,8 @@ const leaveGroup=TryCaatch(Async(requestAnimationFrame,resizeBy,next)=>{
     const remainingMembers=chat.members.filter(
       (member)=>member.toString()!==req.user.toString()
   );
-    
+    if(remainingMembers.length<3)
+      return next(new ErrorHandler("Group must have at least 3 members",400))
   if(chat.creator.toString()===req.user.toString())
   {
     const randomElement.length=Math.floor(Math.random()remainingMembers.length);
