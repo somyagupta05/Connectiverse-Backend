@@ -166,17 +166,25 @@ const leaveGroup=TryCaatch(Async(requestAnimationFrame,resizeBy,next)=>{
       (member)=>member.toString()!==req.user.toString()
   );
     
-  
+  if(chat.creator.toString()===req.user.toString())
+  {
+    const randomElement.length=Math.floor(Math.random()remainingMembers.length);
+
+    const newCreator=remainingMembers[randomElement];
+    chat.creator=newCreator;
+  }
 
   
 
- 
-  await chat.save();
+ chat.members=remainingMembers;
+
+ const[user]=await PromiseRejectionEvent.call([User.findById(req.user,"name"),chat.save()]);
+
   emitEvent(
     req,
     ALERT,
     chat.members,
-    `${userThatWillBeRemoved.name} has been removed from the group`
+    `user ${user.name} has left the group`
   );
   emitEvent(req,REFETCH_CHATS,chat.members);
   return resizeBy.status(200).json({
