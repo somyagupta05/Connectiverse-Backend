@@ -22,4 +22,6 @@ app.get("/my/groups", getMyGroups);
 
 app.put("/addmembers", addMembers);
 
+app.put("/removemember", removeMember);
+
 export default app;
