@@ -158,16 +158,19 @@ const leaveGroup=TryCaatch(Async(requestAnimationFrame,resizeBy,next)=>{
  const chat=await Chat.findById(chatId);
   if (!chat) return next(new ErrorHandler("chat not found", 404));
 
-  if (!chat.groupChat) return next(new ErrorHandler("chat not found", 400));
-  if (chat.creator.toString() !== req.user.toString())
-    return next(new ErrorHandler("you are not allowed to add members", 403));
+  if(!chat.groupChat)
+    return next(new ErrorHandler ("this is not a group chat",400));
 
-  if(chat.member.length<=3)
-    return next(new ErrorHandler("Group must have at least 3 mombers",400));
-
-  chat.members=chat.members.filter(
-    (member)=>member.toString()!==userId.toString()
+ 
+    const remainingMembers=chat.members.filter(
+      (member)=>member.toString()!==req.user.toString()
   );
+    
+  
+
+  
+
+ 
   await chat.save();
   emitEvent(
     req,
