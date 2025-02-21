@@ -26,4 +26,7 @@ app.put("/addmembers", addMembers);
 app.put("/removemember", removeMember);
 
 app.delete("/leave/:id"leaveGroup);
+
+// send attachments
+app.post("/message",attachmentsMulter)
 export default app;

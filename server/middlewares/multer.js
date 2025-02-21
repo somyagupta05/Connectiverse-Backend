@@ -5,5 +5,6 @@ export const multerUpload = multer({
     fileSize: 1024 * 1024 * 5,
   },
 });
-// const singleAvatar = multerUpload.single("avatar");
-export const singleAvatar = multerUpload.single("avatar");
+const singleAvatar = multerUpload.single("avatar");
+const attachmentsMulter = multerUpload.array("files", 5);
+export { singleAvatar, attachmentsMulter };
