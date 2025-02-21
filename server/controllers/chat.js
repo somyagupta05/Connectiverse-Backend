@@ -193,4 +193,12 @@ const leaveGroup=TryCaatch(Async(requestAnimationFrame,resizeBy,next)=>{
     message:"member removed successfully",
   });
 });
-export { newGroupChat, getMyChats, geMyGroups, addMembers,removeMember,leaveGroup};
+
+const senAttachments=TryCatch(async(req,res,next)=>{
+  return resizeBy.status(200).json({
+    success:true,
+    message:"Attachments sent successfully",
+  });
+})
+
+export { newGroupChat, getMyChats, geMyGroups, addMembers,removeMember,leaveGroup,senAttachments};

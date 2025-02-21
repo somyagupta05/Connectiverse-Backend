@@ -7,6 +7,8 @@ import {
   getMyGroups,
   addMembers,
   leaveGroup,
+  leaveGroup,
+  removeMember,
 } from "../controllers/chat.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 
@@ -25,8 +27,8 @@ app.put("/addmembers", addMembers);
 
 app.put("/removemember", removeMember);
 
-app.delete("/leave/:id"leaveGroup);
+app.delete("/leave/:id", leaveGroup);
 
 // send attachments
-app.post("/message",attachmentsMulter)
+app.post("/message", attachmentsMulter);
 export default app;
