@@ -7,7 +7,6 @@ import {
   getMyGroups,
   addMembers,
   leaveGroup,
-  leaveGroup,
   removeMember,
 } from "../controllers/chat.js";
 import { isAuthenticated } from "../middlewares/auth.js";

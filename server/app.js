@@ -4,12 +4,13 @@ import { connectDB } from "./utils/features.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { errorMiddleware } from "./middlewares/error.js";
+import app from "./routes/chat.js";
 import chatRoute from "./routes/chat.js";
 import { createUser } from "./seeders/user.js";
 dotenv.config({
   path: "./.env",
 });
-const app = express();
+// const app = express();
 
 // using middlewares here
 app.use(express.json());

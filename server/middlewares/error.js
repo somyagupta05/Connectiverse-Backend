@@ -1,5 +1,5 @@
 const errorMiddleware = (err, req, res, next) => {
-  err.message ||= "internal server error";
+  err.message ||= "Internal Server Error";
   err.statusCode ||= 500;
 
   return res.status(err.statusCode).json({
@@ -7,6 +7,7 @@ const errorMiddleware = (err, req, res, next) => {
     message: err.message,
   });
 };
+
 const TryCatch = (passedFunc) => async (req, res, next) => {
   try {
     await passedFunc(req, res, next);
@@ -14,7 +15,5 @@ const TryCatch = (passedFunc) => async (req, res, next) => {
     next(error);
   }
 };
-
-const a = TryCatch();
 
 export { errorMiddleware, TryCatch };

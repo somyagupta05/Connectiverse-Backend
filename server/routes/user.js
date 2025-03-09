@@ -3,7 +3,7 @@ import { getMyProfile, login, logout, newUser } from "../controllers/user.js";
 import express from "express";
 import { singleAvatar } from "../middlewares/multer.js";
 import { isAuthenticated } from "../middlewares/auth.js";
-
+import { searchUser } from "../controllers/user.js";
 const app = express.Router();
 
 app.post("/new", singleAvatar, newUser);

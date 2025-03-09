@@ -1,5 +1,9 @@
 import { TryCatch } from "./error";
-import { ErrorHandler } from "../utils/utility";
+import { ErrorHandler } from "../utils/utility.js";
+import { errorMiddleware} from "./error"; // Make sure ".js" is included
+
+// const { errorMiddleware } = require("./error.js");
+
 const isAuthenticated = (req, res, next) => {
   const token = req.cookies["chattu-token"];
 
