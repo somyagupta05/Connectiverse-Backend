@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+<<<<<<< HEAD
      "start": "node index.js",
   "dev": "nodemon index.js"
+=======
+    "dev": "nodemon index.js"
+>>>>>>> f4c67445b06d8afa0e9df315ee41c27232b57557
   },
   "keywords": [],
   "author": "",
@@ -16,6 +20,7 @@
     "discord.js": "^14.17.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "mongoose": "^8.9.4"
+    "mongoose": "^8.9.4",
+    "nodemon": "^3.1.9"
   }
 }
